@@ -6,7 +6,4 @@ package models;
  */
 public interface IGameWorld {
     public void generateWorld(int width, int height);
-    // public void checkGameOver();
-    // public void resetGame();
-    // public PlayerPosition movePlayer(Move direction);
 }

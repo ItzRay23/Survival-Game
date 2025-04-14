@@ -12,24 +12,28 @@ public class GameWorld implements IGameWorld {
     private char[][] worldGrid;
     private char[] tiles = {'*', '~', '?', '!'};
 
-    public char getTile(Move direction) {
+    public char getTileDirection(Move direction) {
         if (direction.getDX() < 0 || direction.getDX() >= width || direction.getDY() < 0 || direction.getDY() >= height) {
             return ' ';
         }
         return worldGrid[direction.getDX()][direction.getDY()];
     }
 
+    public char getTile(GamePosition pos) {
+        return worldGrid[pos.getRow()][pos.getColumn()];
+    }
+
     public HashMap<String, Character> scanSurrounding(GamePosition pos){
         HashMap<String, Character> surrounding = new HashMap<>();
         
-        surrounding.put("N", getTile(new Move(Move.Direction.N)));
-        surrounding.put("S", getTile(new Move(Move.Direction.S)));
-        surrounding.put("E", getTile(new Move(Move.Direction.E)));
-        surrounding.put("W", getTile(new Move(Move.Direction.W)));
-        surrounding.put("NE", getTile(new Move(Move.Direction.NE)));
-        surrounding.put("NW", getTile(new Move(Move.Direction.NW)));
-        surrounding.put("SE", getTile(new Move(Move.Direction.SE)));
-        surrounding.put("SW", getTile(new Move(Move.Direction.SW)));
+        surrounding.put("N", getTileDirection(new Move(Move.Direction.N)));
+        surrounding.put("S", getTileDirection(new Move(Move.Direction.S)));
+        surrounding.put("E", getTileDirection(new Move(Move.Direction.E)));
+        surrounding.put("W", getTileDirection(new Move(Move.Direction.W)));
+        surrounding.put("NE", getTileDirection(new Move(Move.Direction.NE)));
+        surrounding.put("NW", getTileDirection(new Move(Move.Direction.NW)));
+        surrounding.put("SE", getTileDirection(new Move(Move.Direction.SE)));
+        surrounding.put("SW", getTileDirection(new Move(Move.Direction.SW)));
 
         return surrounding;
     }
@@ -38,12 +42,10 @@ public class GameWorld implements IGameWorld {
         this.width = 10;
         this.height = 10;
         worldGrid = new char[width][height];
-        generateWorld(width, height);
     }
 
     public GameWorld(int width, int height) {
         worldGrid = new char[height][width];
-        generateWorld(width, height);
     }
 
     public void generateWorld(int width, int height) {
@@ -57,9 +59,6 @@ public class GameWorld implements IGameWorld {
     private void tileRandomizer(GamePosition pos) {
         Random rand = new Random();
         int randomIndex = 0;
-        if (rand.nextInt(MAX_CHANCE) > 0) {
-            randomIndex = 0;
-        }
         if (rand.nextInt(MAX_CHANCE) > 75) {
             randomIndex = 1;
         }
@@ -70,6 +69,14 @@ public class GameWorld implements IGameWorld {
             randomIndex = 3;
         }
         worldGrid[pos.getRow()][pos.getColumn()] = tiles[randomIndex];
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     @Override

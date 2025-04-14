@@ -19,7 +19,7 @@ public class GamePosition {
     }
 
     public static boolean isInBounds(int maxRow, int maxCol) {
-        return row >= -(maxRow / 2) + 1 && row < (maxRow / 2) - 1 && col >= -(maxCol / 2) + 1 && col < (maxCol / 2) - 1;
+        return row >= 0 && row < maxRow && col >= 0 && col < maxCol;
     }
 
     @Override
