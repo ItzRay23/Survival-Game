@@ -6,7 +6,7 @@ public class Move {
     private int dy = 0;
     
     enum Direction {
-        N, S, E, W, NE, NW, SE, SW
+        N, NE, E, SE, S, SW, W, NW
     }
 
     /**

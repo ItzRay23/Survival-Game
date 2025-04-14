@@ -18,7 +18,7 @@ public class Game {
 
         updateView(world, player);
 
-        GamePosition pos = new GamePosition(5, 5);
+        GamePosition pos = new GamePosition(3, 3);
         System.out.println("Scan of surrounding tiles at " + pos.toString());
         world.revealSurrounding(pos);
 

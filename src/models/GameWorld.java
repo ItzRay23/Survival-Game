@@ -3,6 +3,8 @@ package models;
 import java.util.HashMap;
 import java.util.Random;
 
+import models.Move.Direction;
+
 public class GameWorld implements IGameWorld {
     private static final int MAX_CHANCE = 101;
 
@@ -45,8 +47,8 @@ public class GameWorld implements IGameWorld {
 
     public void revealSurrounding(GamePosition pos) {
         HashMap<String, Character> surrounding = scanSurrounding(pos);
-        for (String direction : surrounding.keySet()) {
-            char tile = surrounding.get(direction);
+        for (Direction direction : Move.Direction.values()) {
+            char tile = surrounding.get(String.valueOf(direction));
             System.out.println("Tile in " + direction + " direction: \'" + tile + "\'");
         }
     }
