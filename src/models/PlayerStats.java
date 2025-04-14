@@ -1,14 +1,12 @@
 package models;
 
-import models.Move;
-
 public class PlayerStats implements IPlayer<Integer> {
     private int health;
     private int thirst;
     private int stamina;
     private int hunger;
-    private int posX;
-    private int posY;
+    private int posX = 0;
+    private int posY = 0;
     public int maxHealth = 100;
     public int maxThirst = 100;
     public int maxStamina = 100;
@@ -92,5 +90,13 @@ public class PlayerStats implements IPlayer<Integer> {
     @Override
     public Integer getHunger() {
         return hunger;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+    
+    public int getPosY() {
+        return posY;
     }
 }
