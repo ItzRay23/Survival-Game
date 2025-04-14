@@ -93,7 +93,7 @@ public class GameWorld implements IGameWorld {
             if (i == 0) {
                 sb.append("  ");
             }
-            sb.append("__");
+            sb.append("___");
         }
 
         sb.append("\n");
@@ -101,9 +101,9 @@ public class GameWorld implements IGameWorld {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (j == 0) {
-                    sb.append(" |");
+                    sb.append(" | ");
                 }
-                sb.append(" ").append(worldGrid[i][j]);
+                sb.append(" ").append(worldGrid[i][j]).append(" ");
             }
             sb.append("\n");
         }
