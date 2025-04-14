@@ -8,10 +8,11 @@ public class Game {
         System.out.println(player.toString());
         System.out.print(world.toString());
     }
-    
+
     public static void main(String[] args) {
-        GameWorld world = new GameWorld();
+        GameWorld world = new GameWorld(20, 20);
         world.generateWorld(world.getWidth(), world.getHeight());
         Player player = new Player('P', 100, 100, 100, 100);
+        updateView(world, player);
     }
 }

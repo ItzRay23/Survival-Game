@@ -39,16 +39,18 @@ public class GameWorld implements IGameWorld {
     }
 
     public GameWorld() {
-        this.width = 10;
-        this.height = 10;
-        worldGrid = new char[width][height];
-    }
-
-    public GameWorld(int width, int height) {
+        width = 10;
+        height = 10;
         worldGrid = new char[height][width];
     }
 
-    public void generateWorld(int width, int height) {
+    public GameWorld(int height, int width) {
+        this.width = width;
+        this.height = height;
+        worldGrid = new char[height][width];
+    }
+
+    public void generateWorld(int height, int width) {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 tileRandomizer(new GamePosition(i, j));
