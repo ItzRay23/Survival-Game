@@ -1,26 +1,29 @@
 package controller;
 
 import models.*;
-import java.util.HashMap;
 
 public class Game {
 
-    private static void updateView(GameWorld world, Player player) {
+    private static void updateView(DisplayWorld world, Player player) {
         System.out.println(player.toString());
         System.out.println(world.toString());
     }
 
-    
     public static void main(String[] args) {
         GameWorld world = new GameWorld(10, 10);
-        world.generateWorld(world.getWidth(), world.getHeight());
+        world.generateWorld(world.getHeight(), world.getWidth());
+
         Player player = new Player('P', 100, 100, 100, 100);
 
-        updateView(world, player);
+        DisplayWorld displayWorld = new DisplayWorld(world); // pass world into display
 
-        GamePosition pos = new GamePosition(3, 3);
+        updateView(displayWorld, player);
+
+        GamePosition pos = new GamePosition(0, 0);
         System.out.println("Scan of surrounding tiles at " + pos.toString());
-        world.revealSurrounding(pos);
+        displayWorld.revealSurrounding(pos);
+        updateView(displayWorld, player);
 
+        pos = new GamePosition(1, 0);
     }
 }

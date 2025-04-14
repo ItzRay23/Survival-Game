@@ -5,9 +5,7 @@ public class Move {
     private int dx = 0;
     private int dy = 0;
     
-    enum Direction {
-        N, NE, E, SE, S, SW, W, NW
-    }
+    public enum Direction {N, NE, E, SE, S, SW, W, NW}
 
     /**
      * Sets the change in x-coordinate based on the direction.
@@ -35,7 +33,7 @@ public class Move {
 
     /**
      * Sets the change in y-coordinate based on the direction.
-     * @param direction The direction to move in. Enum value of Direction in terms of a compass (N, S, E, W)
+     * @param direction The direction to move in. Enum value of Direction {N, S, E, W, NE, NW, SE, SW}
      * @return The change in y-coordinate (dy) based on the direction.
      */
     public static int setDY(Direction direction) {

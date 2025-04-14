@@ -3,24 +3,22 @@ package models;
 import java.util.HashMap;
 import java.util.Random;
 
-import models.Move.Direction;
-
 public class GameWorld implements IGameWorld {
     private static final int MAX_CHANCE = 101;
 
     private int width;
     private int height;
     private char[][] worldGrid;
-    private char[][] displayGrid;
+    
     private char[] tiles = {'*', '~', '?', '!'};
 
-    private boolean isDirectionInBounds(GamePosition pos, Move dir) {
-        return !(pos.getRow() + dir.getDY() >= 0 && pos.getRow() + dir.getDY() < height) &&
+    protected boolean isDirectionOutBounds(GamePosition pos, Move dir) {
+        return (pos.getRow() + dir.getDY() >= 0 && pos.getRow() + dir.getDY() < height) &&
                (pos.getColumn() + dir.getDX() >= 0 && pos.getColumn() + dir.getDX() < width);
     }
 
     private char getTileDirection(GamePosition pos, Move direction) {
-        if (isDirectionInBounds(pos, direction)) {
+        if (!isDirectionOutBounds(pos, direction)) {
             return ' ';
         }
         return worldGrid[pos.getRow() + direction.getDY()][pos.getColumn() + direction.getDX()];
@@ -43,14 +41,6 @@ public class GameWorld implements IGameWorld {
         surrounding.put("SW", getTileDirection(pos, new Move(Move.Direction.SW)));
 
         return surrounding;
-    }
-
-    public void revealSurrounding(GamePosition pos) {
-        HashMap<String, Character> surrounding = scanSurrounding(pos);
-        for (Direction direction : Move.Direction.values()) {
-            char tile = surrounding.get(String.valueOf(direction));
-            System.out.println("Tile in " + direction + " direction: \'" + tile + "\'");
-        }
     }
 
     public GameWorld() {
