@@ -24,6 +24,6 @@ public class GamePosition {
 
     @Override
     public String toString() {
-        return "Player Position: (" + row + ", " + col + ")";
+        return "(" + getRow() + ", " + getColumn() + ")";
     }
 }

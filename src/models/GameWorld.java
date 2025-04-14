@@ -9,13 +9,19 @@ public class GameWorld implements IGameWorld {
     private int width;
     private int height;
     private char[][] worldGrid;
+    private char[][] displayGrid;
     private char[] tiles = {'*', '~', '?', '!'};
 
-    public char getTileDirection(Move direction) {
-        if (direction.getDX() < 0 || direction.getDX() >= width || direction.getDY() < 0 || direction.getDY() >= height) {
+    private boolean isDirectionInBounds(GamePosition pos, Move dir) {
+        return !(pos.getRow() + dir.getDY() >= 0 && pos.getRow() + dir.getDY() < height) &&
+               (pos.getColumn() + dir.getDX() >= 0 && pos.getColumn() + dir.getDX() < width);
+    }
+
+    private char getTileDirection(GamePosition pos, Move direction) {
+        if (isDirectionInBounds(pos, direction)) {
             return ' ';
         }
-        return worldGrid[direction.getDX()][direction.getDY()];
+        return worldGrid[pos.getRow() + direction.getDY()][pos.getColumn() + direction.getDX()];
     }
 
     public char getTile(GamePosition pos) {
@@ -25,16 +31,24 @@ public class GameWorld implements IGameWorld {
     public HashMap<String, Character> scanSurrounding(GamePosition pos){
         HashMap<String, Character> surrounding = new HashMap<>();
         
-        surrounding.put("N", getTileDirection(new Move(Move.Direction.N)));
-        surrounding.put("S", getTileDirection(new Move(Move.Direction.S)));
-        surrounding.put("E", getTileDirection(new Move(Move.Direction.E)));
-        surrounding.put("W", getTileDirection(new Move(Move.Direction.W)));
-        surrounding.put("NE", getTileDirection(new Move(Move.Direction.NE)));
-        surrounding.put("NW", getTileDirection(new Move(Move.Direction.NW)));
-        surrounding.put("SE", getTileDirection(new Move(Move.Direction.SE)));
-        surrounding.put("SW", getTileDirection(new Move(Move.Direction.SW)));
+        surrounding.put("N", getTileDirection(pos, new Move(Move.Direction.N)));
+        surrounding.put("S", getTileDirection(pos, new Move(Move.Direction.S)));
+        surrounding.put("E", getTileDirection(pos, new Move(Move.Direction.E)));
+        surrounding.put("W", getTileDirection(pos, new Move(Move.Direction.W)));
+        surrounding.put("NE", getTileDirection(pos, new Move(Move.Direction.NE)));
+        surrounding.put("NW", getTileDirection(pos, new Move(Move.Direction.NW)));
+        surrounding.put("SE", getTileDirection(pos, new Move(Move.Direction.SE)));
+        surrounding.put("SW", getTileDirection(pos, new Move(Move.Direction.SW)));
 
         return surrounding;
+    }
+
+    public void revealSurrounding(GamePosition pos) {
+        HashMap<String, Character> surrounding = scanSurrounding(pos);
+        for (String direction : surrounding.keySet()) {
+            char tile = surrounding.get(direction);
+            System.out.println("Tile in " + direction + " direction: \'" + tile + "\'");
+        }
     }
 
     public GameWorld() {
@@ -83,11 +97,11 @@ public class GameWorld implements IGameWorld {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i <= width; i++) {
+        for (int i = 0; i < width; i++) {
             if (i == 0) {
                 sb.append("  ");
             }
-            sb.append("___");
+            sb.append("__");
         }
 
         sb.append("\n");
@@ -95,9 +109,9 @@ public class GameWorld implements IGameWorld {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (j == 0) {
-                    sb.append(" | ").append(worldGrid[i][j]).append(" ");
+                    sb.append(" |");
                 }
-                sb.append(" ").append(worldGrid[i][j]).append(" ");
+                sb.append(" ").append(worldGrid[i][j]);
             }
             sb.append("\n");
         }

@@ -58,4 +58,8 @@ public class Player extends PlayerStats{
 
         return sb.toString();
     }
+
+    public GamePosition getPosition() {
+        return new GamePosition(stats.getPosX(), stats.getPosY());
+    }
 }
