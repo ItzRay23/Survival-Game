@@ -1,7 +1,6 @@
 package models;
 
 public interface IPlayer<T> {
-    public void movePlayer(Move move);
     public T getHealth();
     public T getThirst();
     public T getEnergy();

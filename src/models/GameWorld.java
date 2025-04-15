@@ -12,13 +12,13 @@ public class GameWorld implements IGameWorld {
     
     private char[] tiles = {'*', '~', '?', '!'};
 
-    protected boolean isDirectionOutBounds(GamePosition pos, Move dir) {
+    public boolean isDirectionInBounds(GamePosition pos, Move dir) {
         return (pos.getRow() + dir.getDY() >= 0 && pos.getRow() + dir.getDY() < height) &&
                (pos.getColumn() + dir.getDX() >= 0 && pos.getColumn() + dir.getDX() < width);
     }
 
     private char getTileDirection(GamePosition pos, Move direction) {
-        if (!isDirectionOutBounds(pos, direction)) {
+        if (!isDirectionInBounds(pos, direction)) {
             return ' ';
         }
         return worldGrid[pos.getRow() + direction.getDY()][pos.getColumn() + direction.getDX()];
@@ -26,6 +26,12 @@ public class GameWorld implements IGameWorld {
 
     public char getTile(GamePosition pos) {
         return worldGrid[pos.getRow()][pos.getColumn()];
+    }
+
+    public boolean canMoveTo(GamePosition pos) {
+        int row = pos.getRow();
+        int col = pos.getColumn();
+        return row >= 0 && row < height && col >= 0 && col < width;
     }
 
     public HashMap<String, Character> scanSurrounding(GamePosition pos){
@@ -55,15 +61,7 @@ public class GameWorld implements IGameWorld {
         worldGrid = new char[height][width];
     }
 
-    public void generateWorld(int height, int width) {
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                tileRandomizer(new GamePosition(i, j));
-            }
-        }
-    }
-
-    private void tileRandomizer(GamePosition pos) {
+    public void tileRandomizer(GamePosition pos) {
         Random rand = new Random();
         int randomIndex = 0;
         if (rand.nextInt(MAX_CHANCE) > 75) {

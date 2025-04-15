@@ -3,6 +3,8 @@ package models;
 public class Player extends PlayerStats{
 
     private char playerChar;
+    private int posX;
+    private int posY;
 
     public PlayerStats stats = new PlayerStats();
 
@@ -24,7 +26,7 @@ public class Player extends PlayerStats{
         StringBuilder sb = new StringBuilder();
         sb.append("Player Character: ").append(playerChar).append("\n");
 
-        sb.append("HP   : ");
+        sb.append("HEALTH: ");
         for (int i = 0; i < getHealth(); i++) {
             if (i % 5 == 0) {
                 sb.append("#");
@@ -32,7 +34,7 @@ public class Player extends PlayerStats{
         }
         sb.append(" | ").append(getHealth()).append("\n");
 
-        sb.append("HUNGR: ");
+        sb.append("HUNGER: ");
         for (int i = 0; i < getHunger(); i++) {
             if (i % 5 == 0) {
                 sb.append("#");
@@ -40,7 +42,7 @@ public class Player extends PlayerStats{
         }
         sb.append(" | ").append(getHunger()).append("\n");
 
-        sb.append("THRST: ");
+        sb.append("THIRST: ");
         for (int i = 0; i < getThirst(); i++) {
             if (i % 5 == 0) {
                 sb.append("#");
@@ -48,7 +50,7 @@ public class Player extends PlayerStats{
         }
         sb.append(" | ").append(getThirst()).append("\n");
 
-        sb.append("ENRGY: ");
+        sb.append("ENERGY: ");
         for (int i = 0; i < getEnergy(); i++) {
             if (i % 5 == 0) {
                 sb.append("#");
@@ -59,7 +61,30 @@ public class Player extends PlayerStats{
         return sb.toString();
     }
 
+    public int getPosX() {
+        return posX;
+    }
+    
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
+    }
+
     public GamePosition getPosition() {
-        return new GamePosition(stats.getPosX(), stats.getPosY());
+        return new GamePosition(getPosY(), getPosX());
+    }
+
+    public void setPosition(GamePosition pos, GameWorld world) {
+        if (world.canMoveTo(pos)) {
+            setPosX(pos.getColumn());
+            setPosY(pos.getRow());
+        }
     }
 }

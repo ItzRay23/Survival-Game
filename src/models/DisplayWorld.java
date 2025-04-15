@@ -2,17 +2,16 @@ package models;
 
 import java.util.HashMap;
 
-public class DisplayWorld extends GameWorld{
+public class DisplayWorld extends GameWorld {
     private char[][] displayGrid;
     private GameWorld sourceWorld;
 
-    
     public DisplayWorld(GameWorld sourceWorld) {
         this.sourceWorld = sourceWorld;
         displayGrid = new char[sourceWorld.getHeight()][sourceWorld.getWidth()];
         for (int i = 0; i < sourceWorld.getHeight(); i++) {
             for (int j = 0; j < sourceWorld.getWidth(); j++) {
-                displayGrid[i][j] = ' '; // Initially everything is hidden
+                displayGrid[i][j] = ' ';
             }
         }
     }
@@ -23,14 +22,14 @@ public class DisplayWorld extends GameWorld{
     }
 
     protected void revealSurrounding(GamePosition pos) {
-    HashMap<String, Character> surrounding = sourceWorld.scanSurrounding(pos);
+        HashMap<String, Character> surrounding = sourceWorld.scanSurrounding(pos);
 
         for (Move.Direction direction : Move.Direction.values()) {
             Move move = new Move(direction);
             int newRow = pos.getRow() + move.getDY();
             int newCol = pos.getColumn() + move.getDX();
 
-            if (sourceWorld.isDirectionOutBounds(pos, move)) {
+            if (sourceWorld.isDirectionInBounds(pos, move)) {
                 String key = direction.toString(); 
                 char tile = surrounding.getOrDefault(key, ' ');
 
