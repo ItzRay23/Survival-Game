@@ -3,6 +3,8 @@ package models;
 import java.util.HashMap;
 import java.util.Random;
 
+import interfaces.IGameWorld;
+
 public class GameWorld implements IGameWorld {
     private static final int MAX_CHANCE = 101;
 

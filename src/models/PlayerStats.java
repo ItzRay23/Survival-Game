@@ -1,5 +1,7 @@
 package models;
 
+import interfaces.IPlayer;
+
 public class PlayerStats implements IPlayer<Integer> {
     private int health;
     private int thirst;

@@ -8,7 +8,16 @@ import java.util.Set;
 
 public class Game {
 
-    private static void updateView(GameWorld sourceWorld, DisplayWorld world, Player player) {
+    private static Scanner scanner = new Scanner(System.in);
+    /**
+     * Updates the screen for any changes to the game.
+     * THis includes the player's stats and their position in the world.
+     *
+     * @param sourceWorld The world that was generated.
+     * @param world       The world that is displayed to the player.
+     * @param player      The player that is playing the game.
+     */
+    public static void updateView(GameWorld sourceWorld, DisplayWorld world, Player player) {
         System.out.println(player.toString());
         System.out.println(world.toString(player, sourceWorld));
     }
@@ -39,12 +48,23 @@ public class Game {
         return world.isDirectionInBounds(player.getPosition(), direction);
     }
 
-    private static void printGeneratedWorld(GameWorld sourceWorld) {
+    /**
+     * 
+     * @param sourceWorld
+     */
+    public static void printGeneratedWorld(GameWorld sourceWorld) {
         System.out.println("Generated World: \n" + sourceWorld.toString());
     }
 
-    private static GamePosition getMovement(GameWorld world, Player player) {
-        Scanner scanner = new Scanner(System.in);
+    /**
+     * Prompts the player for a movement direction and returns the new position.
+     * If the input is invalid, it will recursively ask for a valid input.
+     *
+     * @param world  The game world to validate the move against.
+     * @param player The player whose position is being updated.
+     * @return The new position of the player after the move.
+     */
+    public static GamePosition getMovement(GameWorld world, Player player) {
         System.out.println("Where do you want to move? Please enter a valid direction.");
         System.out.println("Valid directions are: N, S, E, W, NE, NW, SE, SW");
         String input = scanner.next().toUpperCase();
@@ -54,59 +74,6 @@ public class Game {
         } else {
             System.out.println("Invalid direction. Please try again.");
             return getMovement(world, player);
-        }
-    }
-
-    private static boolean isPlaying(GameWorld world) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Do you want to continue playing? (yes/no)");
-        String input = scanner.next().toLowerCase();
-        while (input.equals("yes") || input.equals("no")) {
-            if (input.equals("yes")) {
-                scanner.close();
-                return true;
-            } else if (input.equals("no")) {
-                scanner.close();
-                return false;
-            }
-        }
-        Player player = new Player('P', 100, 100, 100, 100);
-        if (player.getPosition() == null) {
-            player.setPosition(new GamePosition(0, 0), world);  // Ensure starting position is initialized
-        }
-        scanner.close();
-        return false;
-    }
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to the game!");
-        System.out.println("Please enter the height and width of the world (e.g., 10 10): ");
-        int height = scanner.nextInt();
-        int width = scanner.nextInt();
-
-        GameWorld world = new GameWorld(height, width);
-        world.generateWorld(world.getHeight(), world.getWidth());
-
-        Player player = new Player('P', 100, 100, 100, 100);
-        player.setPosition(new GamePosition(0, 0), world);  // starting position
-
-        DisplayWorld displayWorld = new DisplayWorld(world);
-
-        // Main game loop
-        while (true) {
-            displayWorld.revealArea(player.getPosition());  // Update surrounding tiles and the player's position
-            updateView(world, displayWorld, player);
-            
-            // Get the player's movement and update position
-            GamePosition newPosition = getMovement(world, player);
-            System.out.println("New Position Offset: " + newPosition.toString());
-            player.setPosition(newPosition, world);  // Update player's position
-            GamePosition playerPosition = player.getPosition();
-            System.out.println("Current Player Position: " + playerPosition.toString());
-
-            // After updating the position, we also want to update the surrounding tiles again
-            displayWorld.revealArea(player.getPosition());  // Refresh surrounding tiles based on new position
         }
     }
 }

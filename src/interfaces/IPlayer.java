@@ -1,4 +1,4 @@
-package models;
+package interfaces;
 
 public interface IPlayer<T> {
     public T getHealth();
