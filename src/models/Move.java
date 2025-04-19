@@ -5,7 +5,7 @@ public class Move {
     private int dx = 0;
     private int dy = 0;
     
-    public enum Direction {N, NE, E, SE, S, SW, W, NW}
+    public enum Direction {Q, W, E, A, D, Z, S, C}
 
     /**
      * Sets the change in x-coordinate based on the direction.
@@ -14,17 +14,17 @@ public class Move {
      */
     public static int setDX(Direction direction) {
         switch (direction) {
+            case D:
+                return 1;
+            case A:
+                return -1;
             case E:
                 return 1;
-            case W:
+            case Q:
                 return -1;
-            case NE:
+            case C:
                 return 1;
-            case NW:
-                return -1;
-            case SE:
-                return 1;
-            case SW:
+            case Z:
                 return -1;
             default:
                 return 0;
@@ -38,21 +38,43 @@ public class Move {
      */
     public static int setDY(Direction direction) {
         switch (direction) {
-            case N:
+            case W:
                 return -1;
             case S:
                 return 1;
-            case NE:
+            case E:
                 return -1;
-            case NW:
+            case Q:
                 return -1;
-            case SE:
+            case C:
                 return 1;
-            case SW:
+            case Z:
                 return 1;
             default:
                 return 0;
         }
+    }
+
+    public static String getDirectionToString(String direction) {
+        switch (direction) {
+            case "W":
+                return "Up";
+            case "S":
+                return "Down";
+            case "E":
+                return "Up Right";
+            case "Q":
+                return "Up Left";
+            case "C":
+                return "Down Right";
+            case "Z":
+                return "Down Left";
+            case "A":
+                return "Left";
+            case "D":
+                return "Right";
+        }
+        return null;
     }
 
     public Move(Direction direction) {

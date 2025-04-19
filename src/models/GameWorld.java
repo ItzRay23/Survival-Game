@@ -39,14 +39,14 @@ public class GameWorld implements IGameWorld {
     public HashMap<String, Character> scanSurrounding(GamePosition pos){
         HashMap<String, Character> surrounding = new HashMap<>();
         
-        surrounding.put("N", getTileDirection(pos, new Move(Move.Direction.N)));
-        surrounding.put("S", getTileDirection(pos, new Move(Move.Direction.S)));
-        surrounding.put("E", getTileDirection(pos, new Move(Move.Direction.E)));
         surrounding.put("W", getTileDirection(pos, new Move(Move.Direction.W)));
-        surrounding.put("NE", getTileDirection(pos, new Move(Move.Direction.NE)));
-        surrounding.put("NW", getTileDirection(pos, new Move(Move.Direction.NW)));
-        surrounding.put("SE", getTileDirection(pos, new Move(Move.Direction.SE)));
-        surrounding.put("SW", getTileDirection(pos, new Move(Move.Direction.SW)));
+        surrounding.put("S", getTileDirection(pos, new Move(Move.Direction.S)));
+        surrounding.put("D", getTileDirection(pos, new Move(Move.Direction.D)));
+        surrounding.put("A", getTileDirection(pos, new Move(Move.Direction.A)));
+        surrounding.put("E", getTileDirection(pos, new Move(Move.Direction.E)));
+        surrounding.put("Q", getTileDirection(pos, new Move(Move.Direction.Q)));
+        surrounding.put("C", getTileDirection(pos, new Move(Move.Direction.C)));
+        surrounding.put("Z", getTileDirection(pos, new Move(Move.Direction.Z)));
 
         return surrounding;
     }

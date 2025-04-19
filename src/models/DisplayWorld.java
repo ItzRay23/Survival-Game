@@ -8,9 +8,12 @@ public class DisplayWorld extends GameWorld {
 
     public DisplayWorld(GameWorld sourceWorld) {
         this.sourceWorld = sourceWorld;
-        displayGrid = new char[sourceWorld.getHeight()][sourceWorld.getWidth()];
-        for (int i = 0; i < sourceWorld.getHeight(); i++) {
-            for (int j = 0; j < sourceWorld.getWidth(); j++) {
+        int width = sourceWorld.getWidth();
+        int height = sourceWorld.getHeight();
+        
+        displayGrid = new char[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 displayGrid[i][j] = ' ';
             }
         }
