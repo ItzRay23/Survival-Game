@@ -125,6 +125,11 @@ public class Game {
         }
     }
 
+    /**
+     * Gets the event that occurs when the player moves to a new tile.
+     * @param world The world that was generated.
+     * @param player The player to get the position from.
+     */
     public static void getEvent(GameWorld world, Player player) {
         GamePosition pos = player.getPosition();
         Tile tile = new Tile(world.getTile(pos));

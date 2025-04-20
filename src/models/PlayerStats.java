@@ -1,8 +1,6 @@
 package models;
 
-import interfaces.IPlayer;
-
-public class PlayerStats implements IPlayer<Integer> {
+public class PlayerStats{
     private int health;
     private int thirst;
     private int stamina;
@@ -31,7 +29,6 @@ public class PlayerStats implements IPlayer<Integer> {
      * If the number is negative, it will decrease the health. If the number is positive, it will increase the health.
      * @param num The change in health.
      */
-    @Override
     public void changeHealth(int num) {
         health += num;
     }
@@ -41,7 +38,6 @@ public class PlayerStats implements IPlayer<Integer> {
      * If the number is negative, it will decrease the thirst. If the number is positive, it will increase the thirst.
      * @param num The change in thirst.
      */
-    @Override
     public void changeThirst(int num) {
         thirst += num;
     }
@@ -51,7 +47,6 @@ public class PlayerStats implements IPlayer<Integer> {
      * If the number is negative, it will decrease the stamina. If the number is positive, it will increase the stamina.
      * @param num The change in stamina.
      */
-    @Override
     public void changeStamina(int num) {
         stamina += num;
     }
@@ -61,27 +56,38 @@ public class PlayerStats implements IPlayer<Integer> {
      * If the number is negative, it will decrease the hunger. If the number is positive, it will increase the hunger.
      * @param num The change in hunger.
      */
-    @Override
     public void changeHunger(int num) {
         hunger += num;
     }
 
-    @Override
+    /**
+     * Gets the current health of the player.
+     * @return Current health of the player.
+     */
     public Integer getHealth() {
         return health;
     }
 
-    @Override
+    /**
+     * Gets the current thirst of the player.
+     * @return Current thirst of the player.
+     */
     public Integer getThirst() {
         return thirst;
     }
 
-    @Override
+    /**
+     * Gets the current stamina of the player.
+     * @return Current stamina of the player.
+     */
     public Integer getEnergy() {
         return stamina;
     }
 
-    @Override
+    /**
+     * Gets the current hunger of the player.
+     * @return Current hunger of the player.
+     */
     public Integer getHunger() {
         return hunger;
     }
