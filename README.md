@@ -23,7 +23,6 @@ Use any and all items for your survival
 - Inventory System (*)
 - Gearing System
 - Saving System (*)
-- Expandable World System
 
 
 ## Details
