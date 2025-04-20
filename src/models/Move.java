@@ -55,28 +55,6 @@ public class Move {
         }
     }
 
-    public static String getDirectionToString(String direction) {
-        switch (direction) {
-            case "W":
-                return "Up";
-            case "S":
-                return "Down";
-            case "E":
-                return "Up Right";
-            case "Q":
-                return "Up Left";
-            case "C":
-                return "Down Right";
-            case "Z":
-                return "Down Left";
-            case "A":
-                return "Left";
-            case "D":
-                return "Right";
-        }
-        return null;
-    }
-
     public Move(Direction direction) {
         this.dx = setDX(direction);
         this.dy = setDY(direction);

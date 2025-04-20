@@ -3,7 +3,7 @@ package views;
 import java.util.Scanner;
 
 import models.*;
-import controller.Game;
+import controller.*;
 
 public class Driver {
     public static void main(String[] args) {
@@ -16,15 +16,17 @@ public class Driver {
         GameWorld world = new GameWorld(height, width);
         world.generateWorld(world.getHeight(), world.getWidth());
 
-        Player player = new Player('P', 100, 100, 100, 100);
+        Player player = new Player('P');
         player.setPosition(new GamePosition(0, 0), world);  // starting position
 
         DisplayWorld displayWorld = new DisplayWorld(world);
 
         // Main game loop
         while (true) {
+            Game.clearScreen();
             displayWorld.revealArea(player.getPosition());  // Update surrounding tiles and the player's position
             Game.updateView(world, displayWorld, player);
+            Game.getEvent(world, player);
             
             // Get the player's movement and update position
             GamePosition newPosition = Game.getMovement(world, player);
