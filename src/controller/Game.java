@@ -127,7 +127,7 @@ public class Game {
 
     /**
      * Gets the event that occurs when the player moves to a new tile.
-     * @param world The world that was generated.
+     * @param world  The world that was generated.
      * @param player The player to get the position from.
      */
     public static void getEvent(GameWorld world, Player player) {

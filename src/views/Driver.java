@@ -7,6 +7,8 @@ import controller.*;
 
 public class Driver {
     public static void main(String[] args) {
+        boolean isRunning = true;
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the game!");
         System.out.println("Please enter the height and width of the world (e.g., 10 10): ");
@@ -22,7 +24,7 @@ public class Driver {
         DisplayWorld displayWorld = new DisplayWorld(world);
 
         // Main game loop
-        while (true) {
+        while (isRunning) {
             Game.clearScreen();
             displayWorld.revealArea(player.getPosition());  // Update surrounding tiles and the player's position
             Game.updateView(world, displayWorld, player);
