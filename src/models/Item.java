@@ -6,11 +6,18 @@ public class Item {
     private int value;
     private int quantity;
 
-    public Item(String name, String description, int value) {
+    public Item(String name, String description, int quantity) {
+        this.name = name;
+        this.description = description;
+        this.value = 0;
+        this.quantity = quantity;
+    }
+    
+    public Item(String name, String description, int value, int quantity) {
         this.name = name;
         this.description = description;
         this.value = value;
-        this.quantity = 1;
+        this.quantity = quantity;
     }
 
     public String getName() {
