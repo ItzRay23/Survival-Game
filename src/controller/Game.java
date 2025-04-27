@@ -178,30 +178,41 @@ public class Game {
         }
         System.out.println("\nSelect an item or type [0] to exit: ");
         String input = scanner.nextLine();
+
+        while (input.equals("\n") || input.equals(" ")) {
+            System.out.println("Invalid input. Please try again.");
+            input = scanner.nextLine();
+        }
+
         if (input.equals("0")) {
             return;
-        } else if (Integer.parseInt(input) > indexedItems.size()) {
-            System.out.println("Invalid input. Please try again.");
-            getInvAction();
-        } else {
+        } else if (indexedItems.isEmpty()) {
+            System.out.println("You have no items in your inventory.");
+        }
+        else {
             Item selectedItem = indexedItems.get(Integer.parseInt(input) - 1);
             System.out.println("You have selected " + selectedItem.getName() + ". What would you like to do? \n" +
                     "[1] Use Item" + " [2] Drop Item" + " [3] Select Another Item");
             String action = scanner.nextLine();
+            while (action.equals("\n") || Integer.parseInt(action) < 1 || Integer.parseInt(action) > 3) {
+                System.out.println("Invalid input. Please try again.");
+                action = scanner.nextLine();
+            }
             switch (action) {
                 case "1":
-                    System.out.println("You have used " + selectedItem.getName() + ".");
                     Inventory.removeItem(selectedItem, 1);
+                    clearScreen();
+                    System.out.println(Inventory.invToString());
+                    System.out.println("You have used " + selectedItem.getName() + ".");
                     break;
                 case "2":
-                    System.out.println("You have dropped " + selectedItem.getName() + ".");
                     Inventory.removeItem(selectedItem, 1);
+                    clearScreen();
+                    System.out.println(Inventory.invToString());
+                    System.out.println("You have dropped " + selectedItem.getName() + ".");
                     break;
                 case "3":
                     break;
-                default:
-                    System.out.println("Invalid action. Please try again.");
-                    getInvAction();
             }
         }
         getInvAction();

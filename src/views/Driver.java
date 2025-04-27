@@ -51,7 +51,7 @@ public class Driver {
                     break;
                 case "Inventory":
                     Game.clearScreen();
-                    System.out.println(player.getInventory().toString());
+                    System.out.println(player.getInventory().invToString());
                     Game.getInvAction();
                     break;
                 case "Move":

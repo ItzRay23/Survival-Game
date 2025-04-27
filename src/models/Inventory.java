@@ -30,8 +30,7 @@ public class Inventory {
         return inventory;
     }
 
-    @Override
-    public String toString() {
+    public static String invToString() {
         StringBuilder str = new StringBuilder();
         str.append("           INVENTORY \n|");
         for (int i = 0; i < 30; i++) {
