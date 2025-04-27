@@ -2,6 +2,7 @@ package models;
 
 public class Player extends PlayerStats{
 
+    private Inventory inventory = new Inventory();
     private char playerChar;
     private int posX;
     private int posY;
@@ -79,6 +80,10 @@ public class Player extends PlayerStats{
 
     public GamePosition getPosition() {
         return new GamePosition(getPosY(), getPosX());
+    }
+    
+    public Inventory getInventory() {
+        return inventory;
     }
 
     public void setPosition(GamePosition pos, GameWorld world) {

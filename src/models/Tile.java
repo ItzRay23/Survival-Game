@@ -10,6 +10,7 @@ public class Tile {
 
     private static TileType type;
     private static String description;
+    private static int event;
 
     public Tile(char tile) {
         type = setType(tile);
@@ -43,12 +44,15 @@ public class Tile {
                 switch (resourceType) {
                     case 0:
                         description = "You found a tree! Would you like to gather wood?";
+                        event = 0;
                         break;
                     case 1:
                         description = "You found a bush! Would you like to gather berries?";
+                        event = 1;
                         break;
                     case 2:
                         description = "You found a rock! Would you like to gather stone?";
+                        event = 2;
                         break;
                 }
                 break;
@@ -58,12 +62,15 @@ public class Tile {
                 switch (eventType) {
                     case 0:
                         description = "You found a mysterious cave! It might be dangerous.";
+                        event = 0;
                         break;
                     case 1:
                         description = "You found a strange artifact! It might be valuable.";
+                        event = 1;
                         break;
                     case 2:
                         description = "You found a hidden path! It might lead to something interesting.";
+                        event = 2;
                         break;
                 }
                 break;
@@ -73,12 +80,15 @@ public class Tile {
                 switch (encounterType) {
                     case 0:
                         description = "You encountered a wild animal! Be careful.";
+                        event = 0;
                         break;
                     case 1:
                         description = "You encountered a hostile survivor! Prepare for a fight.";
+                        event = 1;
                         break;
                     case 2:
                         description = "You encountered a friendly survivor! They might help you.";
+                        event = 2;
                         break;
                 }
                 break;
@@ -98,5 +108,9 @@ public class Tile {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getEvent() {
+        return event;
     }
 }

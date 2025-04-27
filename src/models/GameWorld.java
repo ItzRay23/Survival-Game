@@ -30,6 +30,10 @@ public class GameWorld implements IGameWorld {
         return worldGrid[pos.getRow()][pos.getColumn()];
     }
 
+    public void setEmpty(GamePosition pos) {
+        worldGrid[pos.getRow()][pos.getColumn()] = '*';
+    }
+
     public boolean canMoveTo(GamePosition pos) {
         int row = pos.getRow();
         int col = pos.getColumn();
