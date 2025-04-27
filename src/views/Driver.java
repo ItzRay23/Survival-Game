@@ -30,7 +30,12 @@ public class Driver {
 
             Tile event = Game.getEvent(world, player);
             world.setEmpty(player.getPosition());
-            Game.getEventAction(event, player);
+            String message = Game.getEventAction(event, player);
+
+            Game.updateView(world, displayWorld, player, true);
+
+            System.out.println(message);
+            System.out.println("You are on a " + world.getTile(player.getPosition()) + " tile.");
 
             switch(Game.getAction()) {
                 case "Quit":

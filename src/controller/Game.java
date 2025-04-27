@@ -33,6 +33,7 @@ public class Game {
             clearScreen();
         }
         System.out.println(player.toString());
+        world.scanSurrounding(player.getPosition());
         System.out.println(world.toString(player, sourceWorld));
     }
 
@@ -161,7 +162,6 @@ public class Game {
                 System.out.println("You have chosen to move.");
                 return "Move";
             case "2":
-                System.out.println("You open your inventory.");
                 return "Inventory";
             case "3":
                 return "Quit";
@@ -173,35 +173,36 @@ public class Game {
 
     public static void getInvAction() {
         //TODO: Implement inventory actions after events are implemented.
-        System.out.println("You are looking at your inventory. \n");
+        System.out.println("\nYou are looking at your inventory. \n");
         System.out.println("Press enter for now since this is not implemented yet.");
         scanner.nextLine();
     }
 
-    public static void getEventAction(Tile event, Player player) {
+    public static String getEventAction(Tile event, Player player) {
         Tile.TileType type = event.getType();
         int eventType = event.getEvent();
+        String actionMessage = "No action was taken.";
         switch(type){
             case RESOURCE:
                 switch (eventType) {
                     case 0:
-                        System.out.println("[1] Yes \n[2] No");
-                        if(scanner.nextLine() == "1") {
-                            System.out.println("You got 1 wood!");
+                        System.out.println("[y] Yes \n[n] No");
+                        if(scanner.nextLine() == "y") {
+                            actionMessage = "You got 1 wood!";
                             player.getInventory().addItem(new Item("Wood", "A piece of wood", 1), 1);
                         }
                         break;
                     case 1:
-                        System.out.println("[1] Yes \n[2] No");
-                        if(scanner.nextLine() == "1") {
-                            System.out.println("You got 4 berries!");
+                        System.out.println("[y] Yes \n[n] No");
+                        if(scanner.nextLine() == "y") {
+                            actionMessage = "You got 4 berries!";
                             player.getInventory().addItem(new Item("Berry", "A bunch of berries", 4), 4);
                         }
                         break;
                     case 2:
-                        System.out.println("[1] Yes \n[2] No");
-                        if(scanner.nextLine() == "1") {
-                            System.out.println("You got 1 stone!");
+                        System.out.println("[y] Yes \n[n] No");
+                        if(scanner.nextLine() == "y") {
+                            actionMessage = "You got 1 stone!";
                             player.getInventory().addItem(new Item("Stone", "A chunk of stone", 1), 1);
                         }
                         break;
@@ -210,15 +211,15 @@ public class Game {
             case EVENT:
                 switch(eventType) {
                     case 0:
-                        System.out.println("You found a treasure chest! You got 10 gold!");
+                        actionMessage = "You found a treasure chest! You got 10 gold!";
                         player.getInventory().addItem(new Item("Gold", "A piece of gold", 10), 10);
                         break;
                     case 1:
-                        System.out.println("You found a health potion! You got 1 health potion!");
+                        actionMessage = "You found a health potion! You got 1 health potion!";
                         player.getInventory().addItem(new Item("Health Potion", "A potion that restores health", 1), 1);
                         break;
                     case 2:
-                        System.out.println("You found a magic wand! You got a magic wand!");
+                        actionMessage = "You found a magic wand! You got a magic wand!";
                         player.getInventory().addItem(new Item("Magic Wand", "A wand that casts spells", 1), 1);
                         break;
                 }
@@ -226,18 +227,19 @@ public class Game {
             case ENCOUNTER:
                 switch (eventType) {
                     case 0:
-                        System.out.println("You encountered a wild animal! You need to fight it!");
+                        actionMessage = "You encountered a wild animal! You need to fight it!";
                         break;
                     case 1:
-                        System.out.println("You encountered a bandit! You need to fight it!");
+                        actionMessage = "You encountered a bandit! You need to fight it!";
                         break;
                     case 2:
-                        System.out.println("You encountered a monster! You need to fight it!");
+                        actionMessage = "You encountered a monster! You need to fight it!";
                         break;
                 }
             break;
             default:
                 break;
         }
+        return actionMessage;
     }
 }
