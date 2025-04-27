@@ -25,14 +25,26 @@ public class Driver {
 
         // Main game loop
         while (isRunning) {
-            Game.clearScreen();
-            displayWorld.revealArea(player.getPosition());  // Update surrounding tiles and the player's position
-            Game.updateView(world, displayWorld, player);
-            Game.getEvent(world, player);
-            
-            // Get the player's movement and update position
-            GamePosition newPosition = Game.getMovement(world, player);
-            player.setPosition(newPosition, world);  // Update player's position
+            displayWorld.revealArea(player.getPosition());
+            Game.updateView(world, displayWorld, player, true);
+
+            Tile event = Game.getEvent(world, player);
+            world.setEmpty(player.getPosition());
+            Game.getEventAction(event, player);
+
+            switch(Game.getAction()) {
+                case "Quit":
+                    isRunning = false;
+                    break;
+                case "Inventory":
+                    System.out.println(player.getInventory().toString());
+                    Game.getInvAction();
+                    break;
+                case "Move":
+                    Game.movePlayer(world, player);
+            }
         }
+        scanner.close();
+        System.out.println("Quitting game...");
     }
 }
