@@ -172,6 +172,7 @@ public class Game {
     }
 
     public static void getInvAction() {
+        boolean inputIsValid = false;
         ArrayList<Item> indexedItems = new ArrayList<>();
         for (String key : Inventory.getInventory().keySet()) {
             indexedItems.add(Inventory.getInventory().get(key));
@@ -182,6 +183,21 @@ public class Game {
         while (input.equals("\n") || input.equals(" ")) {
             System.out.println("Invalid input. Please try again.");
             input = scanner.nextLine();
+        }
+
+        while (!inputIsValid) {
+            try {
+                int index = Integer.parseInt(input) - 1;
+                while(index < 0 || index >= indexedItems.size()) {
+                    System.out.println("Index Out of Bounds! Please try again.");
+                    input = scanner.nextLine();
+                    index = Integer.parseInt(input) - 1;
+                }
+                inputIsValid = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Not a number! Please try again.");
+                input = scanner.nextLine();
+            }
         }
 
         if (input.equals("0")) {
@@ -212,6 +228,8 @@ public class Game {
                     System.out.println("You have dropped " + selectedItem.getName() + ".");
                     break;
                 case "3":
+                    clearScreen();
+                    System.out.println(Inventory.invToString());
                     break;
             }
         }
@@ -222,26 +240,42 @@ public class Game {
         Tile.TileType type = event.getType();
         int eventType = event.getEvent();
         String actionMessage = "No action was taken.";
+        String input;
         switch(type) {
             case RESOURCE:
                 switch (eventType) {
                     case 0:
                         System.out.println("[y] Yes \n[n] No");
-                        if(scanner.nextLine().equals("y")) {
+                        input = scanner.nextLine();
+                        while (!input.equals("y") && !input.equals("n")) {
+                            System.out.println("Invalid input. Please try again.");
+                            input = scanner.nextLine();
+                        }
+                        if (input.equals("y")) {
                             actionMessage = "You got 1 wood!";
                             player.getInventory().addItem(new Item("Wood", "A piece of wood", 1), 1);
                         }
                         break;
                     case 1:
                         System.out.println("[y] Yes \n[n] No");
-                        if(scanner.nextLine().equals("y")) {
+                        input = scanner.nextLine();
+                        while (!input.equals("y") && !input.equals("n")) {
+                            System.out.println("Invalid input. Please try again.");
+                            input = scanner.nextLine();
+                        }
+                        if (input.equals("y")) {
                             actionMessage = "You got 4 berries!";
                             player.getInventory().addItem(new Item("Berry", "A bunch of berries", 4), 4);
                         }
                         break;
                     case 2:
                         System.out.println("[y] Yes \n[n] No");
-                        if(scanner.nextLine().equals("y")) {
+                        input = scanner.nextLine();
+                        while (!input.equals("y") && !input.equals("n")) {
+                            System.out.println("Invalid input. Please try again.");
+                            input = scanner.nextLine();
+                        }
+                        if (input.equals("y")) {
                             actionMessage = "You got 1 stone!";
                             player.getInventory().addItem(new Item("Stone", "A chunk of stone", 1), 1);
                         }
@@ -252,17 +286,20 @@ public class Game {
                 switch(eventType) {
                     case 0:
                         //TODO: Placeholder, implement later.
-                        actionMessage = "You found a treasure chest! You got 10 gold!";
+                        actionMessage = "You found a treasure chest! You got 10 gold!\n" +
+                                "Press enter to continue...";
                         player.getInventory().addItem(new Item("Gold", "A piece of gold", 10), 10);
                         break;
                     case 1:
                         //TODO: Placeholder, implement later.
-                        actionMessage = "You found a health potion! You got 1 health potion!";
+                        actionMessage = "You found a health potion! You got 1 health potion!\n" +
+                                "Press enter to continue...";
                         player.getInventory().addItem(new Item("Health Potion", "A potion that restores health", 1), 1);
                         break;
                     case 2:
                         //TODO: Placeholder, implement later.
-                        actionMessage = "You found a magic wand! You got a magic wand!";
+                        actionMessage = "You found a magic wand! You got a magic wand!\n" +
+                                "Press enter to continue...";
                         player.getInventory().addItem(new Item("Magic Wand", "A wand that casts spells", 1), 1);
                         break;
                 }
