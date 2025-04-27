@@ -172,17 +172,46 @@ public class Game {
     }
 
     public static void getInvAction() {
-        //TODO: Implement inventory actions after events are implemented.
-        System.out.println("\nYou are looking at your inventory. \n");
-        System.out.println("Press enter for now since this is not implemented yet.");
-        scanner.nextLine();
+        ArrayList<Item> indexedItems = new ArrayList<>();
+        for (String key : Inventory.getInventory().keySet()) {
+            indexedItems.add(Inventory.getInventory().get(key));
+        }
+        System.out.println("\nSelect an item or type [0] to exit: ");
+        String input = scanner.nextLine();
+        if (input.equals("0")) {
+            return;
+        } else if (Integer.parseInt(input) > indexedItems.size()) {
+            System.out.println("Invalid input. Please try again.");
+            getInvAction();
+        } else {
+            Item selectedItem = indexedItems.get(Integer.parseInt(input) - 1);
+            System.out.println("You have selected " + selectedItem.getName() + ". What would you like to do? \n" +
+                    "[1] Use Item" + " [2] Drop Item" + " [3] Select Another Item");
+            String action = scanner.nextLine();
+            switch (action) {
+                case "1":
+                    System.out.println("You have used " + selectedItem.getName() + ".");
+                    Inventory.removeItem(selectedItem, 1);
+                    break;
+                case "2":
+                    System.out.println("You have dropped " + selectedItem.getName() + ".");
+                    Inventory.removeItem(selectedItem, 1);
+                    break;
+                case "3":
+                    break;
+                default:
+                    System.out.println("Invalid action. Please try again.");
+                    getInvAction();
+            }
+        }
+        getInvAction();
     }
 
     public static String getEventAction(Tile event, Player player) {
         Tile.TileType type = event.getType();
         int eventType = event.getEvent();
         String actionMessage = "No action was taken.";
-        switch(type){
+        switch(type) {
             case RESOURCE:
                 switch (eventType) {
                     case 0:
@@ -211,18 +240,22 @@ public class Game {
             case EVENT:
                 switch(eventType) {
                     case 0:
+                        //TODO: Placeholder, implement later.
                         actionMessage = "You found a treasure chest! You got 10 gold!";
                         player.getInventory().addItem(new Item("Gold", "A piece of gold", 10), 10);
                         break;
                     case 1:
+                        //TODO: Placeholder, implement later.
                         actionMessage = "You found a health potion! You got 1 health potion!";
                         player.getInventory().addItem(new Item("Health Potion", "A potion that restores health", 1), 1);
                         break;
                     case 2:
+                        //TODO: Placeholder, implement later.
                         actionMessage = "You found a magic wand! You got a magic wand!";
                         player.getInventory().addItem(new Item("Magic Wand", "A wand that casts spells", 1), 1);
                         break;
                 }
+            scanner.nextLine();
             break;
             case ENCOUNTER:
                 switch (eventType) {
@@ -236,6 +269,7 @@ public class Game {
                         actionMessage = "You encountered a monster! You need to fight it!";
                         break;
                 }
+            scanner.nextLine();
             break;
             default:
                 break;

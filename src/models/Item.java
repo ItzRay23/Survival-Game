@@ -37,7 +37,9 @@ public class Item {
     }
 
     public int addQuantity(int amount) {
-        quantity += amount;
+       if (quantity + amount >= 99) {
+            return 99;
+       }
         return quantity;
     }
 

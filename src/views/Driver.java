@@ -19,7 +19,7 @@ public class Driver {
         world.generateWorld(world.getHeight(), world.getWidth());
 
         Player player = new Player('P');
-        player.setPosition(new GamePosition(0, 0), world);  // starting position
+        player.setPosition(new GamePosition(0, 0), world);
 
         DisplayWorld displayWorld = new DisplayWorld(world);
 
@@ -50,6 +50,7 @@ public class Driver {
                     }
                     break;
                 case "Inventory":
+                    Game.clearScreen();
                     System.out.println(player.getInventory().toString());
                     Game.getInvAction();
                     break;

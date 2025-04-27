@@ -3,10 +3,10 @@ package models;
 import java.util.HashMap;
 
 public class Inventory {
-    private HashMap<String, Item> inventory;
+    private static HashMap<String, Item> inventory;
 
     public Inventory() {
-        this.inventory = new HashMap<>();
+        inventory = new HashMap<>();
     }
 
     public void addItem(Item item, int quantity) {
@@ -17,10 +17,23 @@ public class Inventory {
         }
     }
 
+    public static void removeItem(Item item, int quanity)  {
+        if (inventory.containsKey(item.getName())) {
+            int remainingQuantity = inventory.get(item.getName()).removeQuantity(quanity);
+            if (remainingQuantity == 0) {
+                inventory.remove(item.getName());
+            }
+        }
+    }
+
+    public static HashMap<String, Item> getInventory() {
+        return inventory;
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("INVENTORY \n|");
+        str.append("           INVENTORY \n|");
         for (int i = 0; i < 30; i++) {
             str.append("-");
         }
