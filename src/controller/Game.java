@@ -33,7 +33,7 @@ public class Game {
             clearScreen();
         }
         System.out.println(player.toString());
-        world.scanSurrounding(player.getPosition());
+        world.revealArea(player.getPosition());
         System.out.println(world.toString(player, sourceWorld));
     }
 
@@ -187,21 +187,21 @@ public class Game {
                 switch (eventType) {
                     case 0:
                         System.out.println("[y] Yes \n[n] No");
-                        if(scanner.nextLine() == "y") {
+                        if(scanner.nextLine().equals("y")) {
                             actionMessage = "You got 1 wood!";
                             player.getInventory().addItem(new Item("Wood", "A piece of wood", 1), 1);
                         }
                         break;
                     case 1:
                         System.out.println("[y] Yes \n[n] No");
-                        if(scanner.nextLine() == "y") {
+                        if(scanner.nextLine().equals("y")) {
                             actionMessage = "You got 4 berries!";
                             player.getInventory().addItem(new Item("Berry", "A bunch of berries", 4), 4);
                         }
                         break;
                     case 2:
                         System.out.println("[y] Yes \n[n] No");
-                        if(scanner.nextLine() == "y") {
+                        if(scanner.nextLine().equals("y")) {
                             actionMessage = "You got 1 stone!";
                             player.getInventory().addItem(new Item("Stone", "A chunk of stone", 1), 1);
                         }

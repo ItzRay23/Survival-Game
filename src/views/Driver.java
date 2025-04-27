@@ -25,7 +25,6 @@ public class Driver {
 
         // Main game loop
         while (isRunning) {
-            displayWorld.revealArea(player.getPosition());
             Game.updateView(world, displayWorld, player, true);
 
             Tile event = Game.getEvent(world, player);
@@ -34,12 +33,21 @@ public class Driver {
 
             Game.updateView(world, displayWorld, player, true);
 
-            System.out.println(message);
-            System.out.println("You are on a " + world.getTile(player.getPosition()) + " tile.");
+            if (message != "No Action was Taken") {
+                System.out.println(message);
+            }
 
             switch(Game.getAction()) {
                 case "Quit":
-                    isRunning = false;
+                    System.out.println("THERE IS NO SAVE SYSTEM IMPLEMENTED YET!\n" +
+                                        "IF YOU QUIT NOW, YOU WILL LOSE YOUR PROGRESS!");
+                    System.out.println("Are you sure you want to quit? (Y/N)");
+                    String quit = scanner.next();
+                    if (quit.equalsIgnoreCase("Y")) {
+                        isRunning = false;
+                    } else {
+                        System.out.println("Continuing game...");
+                    }
                     break;
                 case "Inventory":
                     System.out.println(player.getInventory().toString());
