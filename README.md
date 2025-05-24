@@ -15,12 +15,12 @@ Use any and all items for your survival
 - World Generation
 - Player Movement
 - Random Event System
+- Inventory System
 
 ## Planned Features
 
 (*) = Priority feature to implement
 
-- Inventory System (*)
 - Gearing System
 - Saving System (*)
 
